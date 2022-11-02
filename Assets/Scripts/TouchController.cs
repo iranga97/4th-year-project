@@ -54,6 +54,7 @@ public class TouchController : MonoBehaviour
 
     private GameObject viewPopup;
 
+    private bool rotating = false;
 
     void OnEnable()
     {
@@ -69,7 +70,7 @@ public class TouchController : MonoBehaviour
         materialController = new MaterialController(allGameObjects);
         viewController = ViewController.Instance;
         viewController.initializeRotation(root);
-        viewPopup = GameObject.Find("UIDocument_views");
+        viewPopup = GameObject.Find("View Popup");
         viewPopup.SetActive(false);
 
     }
@@ -86,16 +87,28 @@ public class TouchController : MonoBehaviour
             if (Input.touchCount == 1)
             {
                 Touch touch = Input.GetTouch(0);
+                Ray ray = cam.ScreenPointToRay(touch.position);
+                RaycastHit hit;
+
+                
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
+                        if(Physics.Raycast(ray, out hit)){
+                            GameObject hitObject = hit.transform.gameObject;
+                            if(hitObject.tag == "Object"){
+                                rotating = true;
+                            }
+                        }
                         startPos = touch.position;
                         timePressed = Time.time;
                         break;
                     case TouchPhase.Moved:
                         //Rotation arround X Y axis
                         //root.transform.RotateAround(rotationPoint.transform.position,new Vector3(touch.deltaPosition.y,-touch.deltaPosition.x,0f),2);
-                        root.transform.Rotate(-touch.deltaPosition.y,-touch.deltaPosition.x,0f, Space.Self);
+                        if(rotating){
+                            root.transform.Rotate(-touch.deltaPosition.y,-touch.deltaPosition.x,0f, Space.Self);
+                        }
                         break;
                     case TouchPhase.Ended:
                         endPos = touch.position;
@@ -123,8 +136,10 @@ public class TouchController : MonoBehaviour
                             //Select touched object
                             SelectObject(touch);
                         }
+                        rotating = false;
                         break;
                 }
+                
             }
 /*
             //  drag & move objects

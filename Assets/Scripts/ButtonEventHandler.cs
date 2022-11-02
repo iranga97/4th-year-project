@@ -5,15 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class ButtonEventHandler : MonoBehaviour
 {
+    //root object
+    private GameObject obj; 
+
     private MultiSelectStore multiSelectStore;
     private IsolationController isolationController;
+    private ViewController viewController;
 
     private GameObject viewPopup;
     private void Awake()
     {
+        obj = GameObject.Find("root_object");
         multiSelectStore = MultiSelectStore.Instance;
+        viewController = ViewController.Instance;
         isolationController = new IsolationController();
-        viewPopup = GameObject.Find("UIDocument_views");
+        viewPopup = GameObject.Find("View Popup");
     }
     public void onIsolateBtnClick()
     {
@@ -36,5 +42,33 @@ public class ButtonEventHandler : MonoBehaviour
 
     public void onViewPopupCloseClick(){
         viewPopup.SetActive(false);
+    }
+
+    public void onCenterClicked(){
+        viewController.centerPos(obj);
+    }
+
+    public void onAnteriorClicked(){
+        viewController.antRotation(obj);
+    }
+
+    public void onPosteriorClicked(){
+        viewController.posRotation(obj);
+    }
+
+    public void onLateralClicked(){
+        viewController.latRotation(obj);
+    }
+
+    public void onMedialClicked(){
+        viewController.medRotation(obj);
+    }
+
+    public void onSuperiorClicked(){
+        viewController.supRotation(obj);
+    }
+
+    public void onInferiorClicked(){
+        viewController.infRotation(obj);
     }
 }

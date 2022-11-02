@@ -1,5 +1,9 @@
 using UnityEngine;
 using CW.Common;
+using UnityEngine.EventSystems;
+using System.Collections;
+using System.Collections.Generic;
+
 
 namespace Lean.Touch
 {
@@ -32,6 +36,8 @@ namespace Lean.Touch
 		[SerializeField]
 		private Vector3 remainingTranslation;
 
+		private GameObject cam;
+		private GameObject root;
 		/// <summary>If you've set Use to ManuallyAddedFingers, then you can call this method to manually add a finger.</summary>
 		public void AddFinger(LeanFinger finger)
 		{
@@ -60,10 +66,36 @@ namespace Lean.Touch
 		protected virtual void Awake()
 		{
 			Use.UpdateRequiredSelectable(gameObject);
+			root = this.gameObject;
+			cam = GameObject.Find("Main Camera");
 		}
 
 		protected virtual void Update()
 		{
+			if (Input.touchCount == 3){
+
+				Ray ray1 = cam.GetComponent<Camera>().ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit hit1;
+                Ray ray2 = cam.GetComponent<Camera>().ScreenPointToRay(Input.GetTouch(1).position);
+                RaycastHit hit2;
+                Ray ray3 = cam.GetComponent<Camera>().ScreenPointToRay(Input.GetTouch(2).position);
+                RaycastHit hit3;
+
+				GameObject hitObject;
+
+				if(Physics.Raycast(ray1, out hit1)){
+					hitObject = hit1.transform.gameObject;
+					if(hitObject.name == this.gameObject.name){
+						Debug.Log(this.gameObject.name + " --- "+ hitObject.name);
+						drag();
+					}
+				}
+				
+			}
+			
+		}
+
+		private void drag(){
 			// Store
 			var oldPosition = transform.localPosition;
 
