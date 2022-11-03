@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="align-items: stretch; justify-content: center; flex-direction: column-reverse;">
+        <ui:VisualElement style="justify-content: space-around; height: 49px; width: 345px;">
+            <ui:Label text="Organ Name" display-tooltip-when-elided="true" style="white-space: nowrap; -unity-text-align: upper-center;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:ScrollView style="height: 25px;" />
+    <ui:Label text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Maecenas porttitor congue massa. Fusce posuere, magna sed pulvinar ultricies, purus lectus malesuada libero, sit amet commodo magna eros quis urna. Nunc viverra imperdiet enim. Fusce est. Vivamus a tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Proin pharetra nonummy pede. Mauris et orci. Aenean nec lorem. In porttitor. Donec laoreet nonummy augue. Suspendisse dui purus, scelerisque at, vulputate vitae, pretium mattis, nunc. Mauris eget neque at sem venenatis eleifend. Ut nonummy. " display-tooltip-when-elided="true" style="-unity-text-align: lower-left; white-space: normal; height: 174px;" />
+</ui:UXML>
